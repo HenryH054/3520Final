@@ -38,7 +38,109 @@ b. Support multiple payment methods for easy transactions.
 ## Conceptual Diagram
 
 ![Digram](./conceptualDiagram.pdf)
+## Conceptual Diagram Description 
+<details>
+<Summary>Entities & Descriptions</Summary> 
+- Customer: A person browsing or purchasing products.<br>
+- Customer Account: Credentialed profile for storefront access.<br>
+- Order: A record of products purchased by a customer.<br>
+-Shopping Cart: Temporary collection of products before checkout.<br>
+- Cart Item: A specific product selected by the customer.<br>
+- Payment Method: Credit card, PayPal, etc.<br>
+- Order Status: Tracks progress (e.g., placed, packed, shipped).<br>
+- Shipping Progress: Employee-updated record of shipping stages.<br>
+- Employee: Person handling orders or managing catalog.<br>
+- Role: Describes the employee's responsibilities (e.g., Fulfillment Specialist).<br>
+- Department: Organizational group (e.g., Support, Fulfillment).<br>
+- Product: Main items (keyboards) offered in the catalog.<br>
+- Subcomponent: Switches, cases, PCBs used to build keyboards.<br>
+- Accessory: Items like wrist rests, cables, lube kits.<br>
+- Inventory: Stock tracking system.<br>
+- User Credentialing: System managing customer logins.<br>
+</details>
+<details>
+<summary>Attributes by Entity</summary>
+▭ Customer <br>
+customer_id, name, email <br>
+▭ Customer Account<br>
+account_id, username, password, preferences <br>
+▭ Shopping Cart <br>
+cart_id, created_date <br>
+▭ Cart Item <br>
+item_id quantity, added_date <br>
+▭ Order <br>
+order_id, date, total <br>
+▭ Order Status <br>
+status_id, timestamp, status (e.g., Placed, Shipped, Delivered) <br>
+▭ Payment Method <br>
+method_id, type (e.g., Credit Card, PayPal) <br>
+▭ Employee <br>
+employee_id, name, contact_info <br>
+▭ Role <br>
+role_id, title (e.g., Fulfillment Specialist, Customer Support) <br>
+▭ Department <br>
+department_id, name <br>
+▭ Product <br>
+product_id, name, price, category (e.g., Main, Subcomponent, Accessory) <br>
+▭ Subcomponent <br>
+subcomponent_id, name, type (e.g., Switch, PCB, Case) <br>
+▭ Accessory <br>
+accessory_id, name, compatible_with (types of products it's usable with)<br>
+▭ Inventory <br>
+inventory_id, product_id (foreign key), quantity <br>
+▭ User Credentialing<br>
+auth_id, auth_type (e.g., Email/Password, OAuth)<br>
+</details>
 
+<details>
+<summary>RELATIONSHIPS (◇)</summary>
+◇ Places <br>
+Between ▭ Customer and ▭ Order <br>
+Cardinality: Customer (1) — Places — (many) Order <br>
+◇ Has<br>
+Between ▭ Customer and ▭ Customer Account <br>
+Cardinality: Customer (1) — Has — (1) Customer Account <br>
+◇ Uses <br>
+Between ▭ Customer and ▭ Shopping Cart <br>
+Cardinality: Customer (1) — Uses — (many) Shopping Cart <br>
+◇ Contains (Cart) <br>
+Between ▭ Shopping Cart and ▭ Cart Item <br>
+Cardinality: Shopping Cart (1) — Contains — (many) Cart Item <br>
+◇ Contains (Order) <br>
+Between ▭ Order and ▭ Product <br>
+Cardinality: Order (1) — Contains — (many) Product <br>
+◇ Has Status <br>
+Between ▭ Order and ▭ Order Status <br>
+Cardinality: Order (1) — Has — (many) Order Status entries over time <br>
+◇ Paid With <br>
+Between ▭ Order and ▭ Payment Method <br>
+Cardinality: Order (1) — Paid With — (1) Payment Method <br>
+◇ Processes <br>
+Between ▭ Employee and ▭ Order <br>
+Cardinality: Employee (many) — Processes — (many) Order <br>
+◇ Updates <br>
+Between ▭ Employee and ▭ Order Status <br>
+Cardinality: Employee (many) — Updates — (many) Order Status <br>
+◇ Assigned To <br>
+Between ▭ Employee and ▭ Role<br>
+Cardinality: Employee (1) — Assigned To — (many) Role(s) <br>
+◇ Works In <br>
+Between ▭ Employee and ▭ Department <br>
+Cardinality: Employee (1) — Works In — (1) Department <br>
+◇ Includes <br>
+Between ▭ Product and ▭ Subcomponent <br>
+Cardinality: Product (many) — Includes — (many) Subcomponent <br>
+◇ Related To <br>
+Between ▭ Product and ▭ Accessory <br>
+Cardinality: Product (many) — Related To — (many) Accessory <br>
+◇ Tracks <br>
+Between ▭ Inventory and ▭ Product <br>
+Cardinality: Inventory (1) — Tracks — (many) Product <br>
+◇ Manages <br>
+Between ▭ User Credentialing and ▭ Customer Account <br>
+Cardinality: User Credentialing (1) — Manages — (many) Customer Account <br>
+</details>
+    
 ## Timeline
 
 Week 1: Finalize Project Scope and Requirements
