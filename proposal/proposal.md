@@ -37,7 +37,7 @@ b. Support multiple payment methods for easy transactions.
 
 ## Conceptual Diagram
 
-![Digram](./conceptualDiagram.pdf)
+![Conceptual Model Diagram](./GroupModel.png)
 ## Conceptual Diagram Description 
 <details>
 <Summary>Entities & Descriptions</Summary> 
